@@ -31,6 +31,6 @@ jobs:
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        ACCESS_TOKEN: ${{ secrets.Token }}
-        BRANCH: gh-pages
+        token: ${{ secrets.Token }}
+        branch: gh-pages
         folder: build # The folder the action should deploy.
