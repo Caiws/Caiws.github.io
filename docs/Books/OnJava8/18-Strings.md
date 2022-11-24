@@ -235,7 +235,7 @@ public class UsingStringBuilder {
 
 `string2()` 使用了 `Stream`，这样代码更加简洁美观。可以证明，`Collectors.joining()` 内部也是使用的 `StringBuilder`，这种写法不会影响性能！
 
-`StringBuilder `是 Java SE5 引入的，在这之前用的是 `StringBuffer`。后者是线程安全的（参见[并发编程](./24-Concurrent-Programming)），因此开销也会大些。使用 `StringBuilder` 进行字符串操作更快一点。
+`StringBuilder `是 Java SE5 引入的，在这之前用的是 `StringBuffer`。后者是线程安全的（参见[并发编程](./Concurrent-Programming)），因此开销也会大些。使用 `StringBuilder` 进行字符串操作更快一点。
 
 
 
@@ -673,7 +673,7 @@ public class Hex {
                   ... 
 */
 ```
-为了打开及读入二进制文件，我们用到了另一个工具 `Files.readAllBytes()`，这已经在 [Files章节](./17-Files) 介绍过了。这里的 `readAllBytes()` 方法将整个文件以 `byte` 数组的形式返回。
+为了打开及读入二进制文件，我们用到了另一个工具 `Files.readAllBytes()`，这已经在 [Files章节](./Files) 介绍过了。这里的 `readAllBytes()` 方法将整个文件以 `byte` 数组的形式返回。
 
 
 
@@ -1264,7 +1264,7 @@ thE spEcIAl dElImItErs, thEn prOcEss thE
 ExtrActEd blOck. 
 */
 ```
-此处使用上一章介绍过的 [`Files`](./17-Files) 类打开并读入文件。`Files.lines()` 返回一个 `Stream` 对象，包含读入的所有行，`Collectors.joining()` 在每一行的结尾追加参数字符序列，最终拼接成一个 `String` 对象。
+此处使用上一章介绍过的 [`Files`](./Files) 类打开并读入文件。`Files.lines()` 返回一个 `Stream` 对象，包含读入的所有行，`Collectors.joining()` 在每一行的结尾追加参数字符序列，最终拼接成一个 `String` 对象。
 
 `mInput` 匹配 `/*!` 和 `！*/` 之间的所有文字（注意分组的括号）。接下来，将存在两个或两个以上空格的地方，缩减为一个空格，并且删除每行开头部分的所有空格（为了使每一行都达到这个效果，而不仅仅是删除文本开头部分的空格，这里特意开启了多行模式）。这两个替换操作所使用的的 `replaceAll()` 是 `String` 对象自带的方法，在这里，使用此方法更方便。注意，因为这两个替换操作都只使用了一次 `replaceAll()`，所以，与其编译为 `Pattern`，不如直接使用 `String` 的 `replaceAll()` 方法，而且开销也更小些。
 

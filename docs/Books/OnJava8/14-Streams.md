@@ -74,7 +74,7 @@ public class ImperativeRandoms {
 
 注意，你必须研究代码才能搞清楚`ImperativeRandoms.java`程序在做什么。而在 `Randoms.java` 中，代码会直接告诉你它在做什么。这种语义的清晰性是使用Java 8 流式编程的重要原因之一。
 
-像在 `ImperativeRandoms.java` 中那样显式地编写迭代过程的方式称为*外部迭代（external iteration）*。而在 `Randoms.java` 中，你看不到任何上述的迭代过程，所以它被称为*内部迭代（internal iteration）*，这是流式编程的一个核心特征。内部迭代产生的代码可读性更强，而且能更简单的使用多核处理器。通过放弃对迭代过程的控制，可以把控制权交给并行化机制。我们将在[并发编程](24-Concurrent-Programming)一章中学习这部分内容。
+像在 `ImperativeRandoms.java` 中那样显式地编写迭代过程的方式称为*外部迭代（external iteration）*。而在 `Randoms.java` 中，你看不到任何上述的迭代过程，所以它被称为*内部迭代（internal iteration）*，这是流式编程的一个核心特征。内部迭代产生的代码可读性更强，而且能更简单的使用多核处理器。通过放弃对迭代过程的控制，可以把控制权交给并行化机制。我们将在[并发编程](./Concurrent-Programming)一章中学习这部分内容。
 
 另一个重要方面，流是懒加载的。这代表着它只在绝对必要时才计算。你可以将流看作“延迟列表”。由于计算延迟，流使我们能够表示非常大（甚至无限）的序列，而不需要考虑内存问题。
 
@@ -88,7 +88,7 @@ Java 设计者面临着这样一个难题：现存的大量类库不仅为 Java 
 
 一个大的挑战来自于使用接口的库。集合类是其中关键的一部分，因为你想把集合转为流。但是如果你将一个新方法添加到接口，那就破坏了每一个实现接口的类，因为这些类都没有实现你添加的新方法。
 
-Java 8 采用的解决方案是：在[接口](10-Interfaces)中添加被 `default`（`默认`）修饰的方法。通过这种方案，设计者们可以将流式（*stream*）方法平滑地嵌入到现有类中。流方法预置的操作几乎已满足了我们平常所有的需求。流操作的类型有三种：创建流，修改流元素（中间操作， Intermediate Operations），消费流元素（终端操作， Terminal Operations）。最后一种类型通常意味着收集流元素（通常是汇入一个集合）。
+Java 8 采用的解决方案是：在[接口](./Interfaces)中添加被 `default`（`默认`）修饰的方法。通过这种方案，设计者们可以将流式（*stream*）方法平滑地嵌入到现有类中。流方法预置的操作几乎已满足了我们平常所有的需求。流操作的类型有三种：创建流，修改流元素（中间操作， Intermediate Operations），消费流元素（终端操作， Terminal Operations）。最后一种类型通常意味着收集流元素（通常是汇入一个集合）。
 
 下面我们来看下每种类型的流操作。
 
@@ -680,7 +680,7 @@ public class ArrayStreams {
 
 ### 正则表达式
 
-Java 的正则表达式将在[字符串](18-Strings)这一章节详细介绍。Java 8 在 `java.util.regex.Pattern` 中增加了一个新的方法 `splitAsStream()`。这个方法可以根据传入的公式将字符序列转化为流。但是有一个限制，输入只能是 **CharSequence**，因此不能将流作为 `splitAsStream()` 的参数。
+Java 的正则表达式将在[字符串](./Strings)这一章节详细介绍。Java 8 在 `java.util.regex.Pattern` 中增加了一个新的方法 `splitAsStream()`。这个方法可以根据传入的公式将字符序列转化为流。但是有一个限制，输入只能是 **CharSequence**，因此不能将流作为 `splitAsStream()` 的参数。
 
 我们再一次查看将文件转换为单词的过程。这一次，我们使用流将文件转换为一个字符串，接着使用正则表达式将字符串转化为单词流。
 
@@ -1304,7 +1304,7 @@ Caught java.lang.Exception: Supplied
 
 `test()` 通过传入所有方法都适用的 **Consumer** 来避免重复代码。
 
-`orElseThrow()` 通过 **catch** 关键字来捕获抛出的异常。更多细节，将在 [异常](./15-Exceptions) 这一章节中学习。
+`orElseThrow()` 通过 **catch** 关键字来捕获抛出的异常。更多细节，将在 [异常](./Exceptions) 这一章节中学习。
 
 
 
@@ -1718,9 +1718,9 @@ public class RandInts {
 - `forEach(Consumer)`常见如 `System.out::println` 作为 **Consumer** 函数。
 - `forEachOrdered(Consumer)`： 保证 `forEach` 按照原始流顺序操作。
 
-第一种形式：无序操作，仅在引入并行流时才有意义。在 [并发编程](24-Concurrent-Programming) 章节之前我们不会深入研究这个问题。这里简单介绍下 `parallel()`：可实现多处理器并行操作。实现原理为将流分割为多个（通常数目为 CPU 核心数）并在不同处理器上分别执行操作。因为我们采用的是内部迭代，而不是外部迭代，所以这是可能实现的。
+第一种形式：无序操作，仅在引入并行流时才有意义。在 [并发编程](./Concurrent-Programming) 章节之前我们不会深入研究这个问题。这里简单介绍下 `parallel()`：可实现多处理器并行操作。实现原理为将流分割为多个（通常数目为 CPU 核心数）并在不同处理器上分别执行操作。因为我们采用的是内部迭代，而不是外部迭代，所以这是可能实现的。
 
-`parallel()` 看似简单，实则棘手。更多内容将在稍后的 [并发编程](24-Concurrent-Programming) 章节中学习。
+`parallel()` 看似简单，实则棘手。更多内容将在稍后的 [并发编程](./Concurrent-Programming) 章节中学习。
 
 下例引入 `parallel()` 来帮助理解 `forEachOrdered(Consumer)` 的作用和使用场景。代码示例：
 

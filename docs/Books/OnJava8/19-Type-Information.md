@@ -157,7 +157,7 @@ Class.forName("Gum");
 
 所有 `Class` 对象都属于 `Class` 类，而且它跟其他普通对象一样，我们可以获取和操控它的引用(这也是类加载器的工作)。`forName()` 是 `Class` 类的一个静态方法，我们可以使用 `forName()` 根据目标类的类名（`String`）得到该类的 `Class` 对象。上面的代码忽略了 `forName()` 的返回值，因为那个调用是为了得到它产生的“副作用”。从结果可以看出，`forName()` 执行的副作用是如果 `Gum` 类没有被加载就加载它，而在加载的过程中，`Gum` 的 `static` 初始化块被执行了。
 
-还需要注意的是，如果 `Class.forName()` 找不到要加载的类，它就会抛出异常 `ClassNotFoundException`。上面的例子中我们只是简单地报告了问题，但在更严密的程序里，就要考虑在异常处理程序中把问题解决掉（具体例子详见[设计模式](./25-Patterns)章节）。
+还需要注意的是，如果 `Class.forName()` 找不到要加载的类，它就会抛出异常 `ClassNotFoundException`。上面的例子中我们只是简单地报告了问题，但在更严密的程序里，就要考虑在异常处理程序中把问题解决掉（具体例子详见[设计模式](./Patterns)章节）。
 
 无论何时，只要你想在运行时使用类型信息，就必须先得到那个 `Class` 对象的引用。`Class.forName()` 就是实现这个功能的一个便捷途径，因为使用该方法你不需要先持有这个类型 的对象。但是，如果你已经拥有了目标类的对象，那就可以通过调用 `getClass()` 方法来获取 `Class` 引用了，这个方法来自根类 `Object`，它将返回表示该对象实际类型的 `Class` 对象的引用。`Class` 包含很多有用的方法，下面代码展示了其中的一部分：
 
@@ -264,7 +264,7 @@ Java 还提供了另一种方法来生成类对象的引用：**类字面常量*
 类字面常量不仅可以应用于普通类，也可以应用于接口、数组以及基本数据类型。另外，对于基本数据类型的包装类，还有一个标准字段 `TYPE`。`TYPE` 字段是一个引用，指向对应的基本数据类型的 `Class` 对象，如下所示：
 
 <figure>
-<table style="text-align:center;">
+<table style={{textAlign:'center'}}>
   <thead>
     <tr>
       <th colspan="2">...等价于...</th>
@@ -419,7 +419,7 @@ public class GenericClassReferences {
 Class<Number> geenericNumberClass = int.class;
 ```
 
-这看起来似乎是起作用的，因为 `Integer` 继承自 `Number`。但事实却是不行，因为 `Integer` 的 `Class` 对象并不是 `Number`的 `Class` 对象的子类（这看起来可能有点诡异，我们将在[泛型](./20-Generics)这一章详细讨论）。
+这看起来似乎是起作用的，因为 `Integer` 继承自 `Number`。但事实却是不行，因为 `Integer` 的 `Class` 对象并不是 `Number`的 `Class` 对象的子类（这看起来可能有点诡异，我们将在[泛型](./Generics)这一章详细讨论）。
 
 为了在使用 `Class` 引用时放松限制，我们使用了通配符，它是 Java 泛型中的一部分。通配符就是 `?`，表示“任何事物”。因此，我们可以在上例的普通 `Class` 引用中添加通配符，并产生相同的结果：
 
@@ -550,7 +550,7 @@ public class ClassCasts {
 
 `cast()` 方法接受参数对象，并将其类型转换为 `Class` 引用的类型。但是，如果观察上面的代码，你就会发现，与实现了相同功能的 `main` 方法中最后一行相比，这种转型好像做了很多额外的工作。
 
-`cast()` 在无法使用普通类型转换的情况下会显得非常有用，在你编写泛型代码（你将在[泛型](./20-Generics)这一章学习到）时，如果你保存了 `Class` 引用，并希望以后通过这个引用来执行转型，你就需要用到 `cast()`。但事实却是这种情况非常少见，我发现整个 Java 类库中，只有一处使用了 `cast()`（在 `com.sun.mirror.util.DeclarationFilter` 中）。
+`cast()` 在无法使用普通类型转换的情况下会显得非常有用，在你编写泛型代码（你将在[泛型](./Generics)这一章学习到）时，如果你保存了 `Class` 引用，并希望以后通过这个引用来执行转型，你就需要用到 `cast()`。但事实却是这种情况非常少见，我发现整个 Java 类库中，只有一处使用了 `cast()`（在 `com.sun.mirror.util.DeclarationFilter` 中）。
 
 Java 类库中另一个没有任何用处的特性就是 `Class.asSubclass()`，该方法允许你将一个 `Class` 对象转型为更加具体的类型。
 
@@ -1669,13 +1669,13 @@ boring3
 
 在这个示例里，我们只是在寻找方法名，但是你也可以寻找方法签名的其他方面，甚至可以搜索特定的参数值。
 
-动态代理不是你每天都会使用的工具，但是它可以很好地解决某些类型的问题。你可以在 Erich Gamma 等人的*设计模式*中了解有关*代理*和其他设计模式的更多信息。 （Addison-Wesley，1995年），以及[设计模式](./25-Patterns)一章。
+动态代理不是你每天都会使用的工具，但是它可以很好地解决某些类型的问题。你可以在 Erich Gamma 等人的*设计模式*中了解有关*代理*和其他设计模式的更多信息。 （Addison-Wesley，1995年），以及[设计模式](./Patterns)一章。
 
 
 
 ## Optional类
 
-如果你使用内置的 `null` 来表示没有对象，每次使用引用的时候就必须测试一下引用是否为 `null`，这显得有点枯燥，而且势必会产生相当乏味的代码。问题在于 `null` 没什么自己的行为，只会在你想用它执行任何操作的时候产生 `NullPointException`。`java.util.Optional`（首次出现是在[函数式编程](docs/book/13-Functional-Programming)这章）为 `null` 值提供了一个轻量级代理，`Optional` 对象可以防止你的代码直接抛出 `NullPointException`。
+如果你使用内置的 `null` 来表示没有对象，每次使用引用的时候就必须测试一下引用是否为 `null`，这显得有点枯燥，而且势必会产生相当乏味的代码。问题在于 `null` 没什么自己的行为，只会在你想用它执行任何操作的时候产生 `NullPointException`。`java.util.Optional`（首次出现是在[函数式编程](./Functional-Programming)这章）为 `null` 值提供了一个轻量级代理，`Optional` 对象可以防止你的代码直接抛出 `NullPointException`。
 
 虽然 `Optional` 是 Java 8 为了支持流式编程才引入的，但其实它是一个通用的工具。为了证明这点，在本节中，我们会把它用在普通的类中。因为涉及一些运行时检测，所以把这一小节放在了本章。
 

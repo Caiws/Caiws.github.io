@@ -21,9 +21,9 @@ MyType aReference;
 
 ## 泛型和类型安全的集合
 
-使用 Java 5 之前的集合的一个主要问题是编译器允许你向集合中插入不正确的类型。例如，考虑一个 **Apple** 对象的集合，这里使用最基本最可靠的 **ArrayList** 。现在，可以把 **ArrayList** 看作“可以自动扩充自身尺寸的数组”来看待。使用 **ArrayList** 相当简单：创建一个实例，用 `add()` 插入对象；然后用 `get()` 来访问这些对象，此时需要使用索引，就像数组那样，但是不需要方括号[^2]。 **ArrayList** 还有一个 `size()` 方法，来说明集合中包含了多少个元素，所以不会不小心因数组越界而引发错误（通过抛出*运行时异常*，[异常](./15-Exceptions)章节介绍了异常）。
+使用 Java 5 之前的集合的一个主要问题是编译器允许你向集合中插入不正确的类型。例如，考虑一个 **Apple** 对象的集合，这里使用最基本最可靠的 **ArrayList** 。现在，可以把 **ArrayList** 看作“可以自动扩充自身尺寸的数组”来看待。使用 **ArrayList** 相当简单：创建一个实例，用 `add()` 插入对象；然后用 `get()` 来访问这些对象，此时需要使用索引，就像数组那样，但是不需要方括号[^2]。 **ArrayList** 还有一个 `size()` 方法，来说明集合中包含了多少个元素，所以不会不小心因数组越界而引发错误（通过抛出*运行时异常*，[异常](./Exceptions)章节介绍了异常）。
 
-在本例中， **Apple** 和 **Orange** 都被放到了集合中，然后将它们取出。正常情况下，Java编译器会给出警告，因为这个示例没有使用泛型。在这里，使用特定的注解来抑制警告信息。注解以“@”符号开头，可以带参数。这里的 `@SuppressWarning` 注解及其参数表示只抑制“unchecked”类型的警告（[注解](./23-Annotations)章节将介绍更多有关注解的信息）：
+在本例中， **Apple** 和 **Orange** 都被放到了集合中，然后将它们取出。正常情况下，Java编译器会给出警告，因为这个示例没有使用泛型。在这里，使用特定的注解来抑制警告信息。注解以“@”符号开头，可以带参数。这里的 `@SuppressWarning` 注解及其参数表示只抑制“unchecked”类型的警告（[注解](./Annotations)章节将介绍更多有关注解的信息）：
 
 ```java
 // collections/ApplesAndOrangesWithoutGenerics.java
@@ -65,7 +65,7 @@ java.lang.ClassCastException: Orange cannot be cast to Apple
 
 在运行时，当尝试将 **Orange** 对象转为 **Apple** 时，会出现输出中显示的错误。
 
-在[泛型](./20-Generics)章节中，你将了解到使用 Java 泛型来创建类可能很复杂。但是，使用预先定义的泛型类却相当简单。例如，要定义一个用于保存 **Apple** 对象的 **ArrayList** ，只需要使用 **ArrayList&lt;Apple\&gt;** 来代替 **ArrayList** 。尖括号括起来的是*类型参数*（可能会有多个），它指定了这个集合实例可以保存的类型。
+在[泛型](./Generics)章节中，你将了解到使用 Java 泛型来创建类可能很复杂。但是，使用预先定义的泛型类却相当简单。例如，要定义一个用于保存 **Apple** 对象的 **ArrayList** ，只需要使用 **ArrayList&lt;Apple\&gt;** 来代替 **ArrayList** 。尖括号括起来的是*类型参数*（可能会有多个），它指定了这个集合实例可以保存的类型。
 
 通过使用泛型，就可以在编译期防止将错误类型的对象放置到集合中[^3]。下面还是这个示例，但是使用了泛型：
 ```java
@@ -338,7 +338,7 @@ public class PrintingCollections {
 - 基本的 **ArrayList** ，擅长随机访问元素，但在 **List** 中间插入和删除元素时速度较慢。
 - **LinkedList** ，它通过代价较低的在 **List** 中间进行的插入和删除操作，提供了优化的顺序访问。 **LinkedList** 对于随机访问来说相对较慢，但它具有比 **ArrayList** 更大的特征集。
 
-下面的示例导入 **typeinfo.pets** ，超前使用了[类型信息](./19-Type-Information)一章中的类库。这个类库包含了 **Pet** 类层次结构，以及用于随机生成 **Pet** 对象的一些工具类。此时不需要了解完整的详细信息，只需要知道两点：
+下面的示例导入 **typeinfo.pets** ，超前使用了[类型信息](./Type-Information)一章中的类库。这个类库包含了 **Pet** 类层次结构，以及用于随机生成 **Pet** 对象的一些工具类。此时不需要了解完整的详细信息，只需要知道两点：
 
 1. 有一个 **Pet** 类，以及 **Pet** 的各种子类型。
 2. 静态的 `Pets.arrayList()` 方法返回一个填充了随机选取的 **Pet** 对象的 **ArrayList**：
@@ -477,7 +477,7 @@ sub: [Mouse, Pug]
 3. 使用 `hasNext()` 方法检查序列中是否还有元素。
 4. 使用 `remove()` 方法将迭代器最近返回的那个元素删除。
 
-为了观察它的工作方式，这里再次使用[类型信息](./19-Type-Information)章节中的 **Pet** 工具：
+为了观察它的工作方式，这里再次使用[类型信息](./Type-Information)章节中的 **Pet** 工具：
 
 ```java
 // collections/SimpleIteration.java
@@ -969,7 +969,7 @@ public class UniqueWords {
 */
 ```
 
-我们逐步浏览文件中的每一行，并使用 `String.split()` 将其分解为单词，这里使用正则表达式 **\\\ W +** ，这意味着它会依据一个或多个（即 **+** ）非单词字母来拆分字符串（正则表达式将在[字符串](./18-Strings)章节介绍）。每个结果单词都会添加到 **Set words** 中。因为它是 **TreeSet** ，所以对结果进行排序。这里，排序是按*字典顺序*（lexicographically）完成的，因此大写字母和小写字母是分开的。如果想按*字母顺序*（alphabetically）对其进行排序，可以向  **TreeSet** 构造器传入 **String.CASE_INSENSITIVE_ORDER** 比较器（比较器是一个建立排序顺序的对象）：
+我们逐步浏览文件中的每一行，并使用 `String.split()` 将其分解为单词，这里使用正则表达式 **\\\ W +** ，这意味着它会依据一个或多个（即 **+** ）非单词字母来拆分字符串（正则表达式将在[字符串](./Strings)章节介绍）。每个结果单词都会添加到 **Set words** 中。因为它是 **TreeSet** ，所以对结果进行排序。这里，排序是按*字典顺序*（lexicographically）完成的，因此大写字母和小写字母是分开的。如果想按*字母顺序*（alphabetically）对其进行排序，可以向  **TreeSet** 构造器传入 **String.CASE_INSENSITIVE_ORDER** 比较器（比较器是一个建立排序顺序的对象）：
 
 ```java
 // collections/UniqueWordsAlphabetic.java
@@ -996,7 +996,7 @@ public class UniqueWordsAlphabetic {
 */
 ```
 
-**Comparator** 比较器将在[数组](./21-Arrays)章节详细介绍。
+**Comparator** 比较器将在[数组](./Arrays)章节详细介绍。
 
 
 ## 映射Map
@@ -1134,7 +1134,7 @@ Person Luke has:
 
 ## 队列Queue
 
-队列是一个典型的“先进先出”（FIFO）集合。 即从集合的一端放入事物，再从另一端去获取它们，事物放入集合的顺序和被取出的顺序是相同的。队列通常被当做一种可靠的将对象从程序的某个区域传输到另一个区域的途径。队列在[并发编程](./24-Concurrent-Programming)中尤为重要，因为它们可以安全地将对象从一个任务传输到另一个任务。
+队列是一个典型的“先进先出”（FIFO）集合。 即从集合的一端放入事物，再从另一端去获取它们，事物放入集合的顺序和被取出的顺序是相同的。队列通常被当做一种可靠的将对象从程序的某个区域传输到另一个区域的途径。队列在[并发编程](./Concurrent-Programming)中尤为重要，因为它们可以安全地将对象从一个任务传输到另一个任务。
 
 **LinkedList** 实现了 **Queue** 接口，并且提供了一些方法以支持队列行为，因此 **LinkedList** 可以用作 **Queue** 的一种实现。 通过将 **LinkedList** 向上转换为 **Queue** ，下面的示例使用了在 **Queue** 接口中的 **Queue** 特有(Queue-specific)方法：
 
@@ -1679,7 +1679,7 @@ Java 提供了许多保存对象的方法：
 
 虚线框表示接口，实线框表示普通的（具体的）类。带有空心箭头的虚线表示特定的类实现了一个接口。实心箭头表示某个类可以生成箭头指向的类的对象。例如，任何 **Collection** 都可以生成 **Iterator** ， **List** 可以生成 **ListIterator** （也能生成普通的 **Iterator** ，因为 **List** 继承自 **Collection** ）。
 
-下面的示例展示了各种不同的类在方法上的差异。实际代码来自[泛型](./20-Generics)章节，在这里只是调用它来产生输出。程序的输出还展示了在每个类或接口中所实现的接口：
+下面的示例展示了各种不同的类在方法上的差异。实际代码来自[泛型](./Generics)章节，在这里只是调用它来产生输出。程序的输出还展示了在每个类或接口中所实现的接口：
 
 ```java
 // collections/CollectionDifferences.java
@@ -1735,7 +1735,7 @@ Interfaces in TreeMap: [NavigableMap, Cloneable, Serializable]
 
 [^2]: 这里是操作符重载的用武之地，C++和C#的集合类都使用操作符重载生成了更简洁的语法。
 
-[^3]: 在[泛型](./20-Generics)章节的末尾，有个关于这个问题是否很严重的讨论。但是，[泛型](./20-Generics)章节还将展示Java泛型远不止是类型安全的集合这么简单。
+[^3]: 在[泛型](./Generics)章节的末尾，有个关于这个问题是否很严重的讨论。但是，[泛型](./Generics)章节还将展示Java泛型远不止是类型安全的集合这么简单。
 
 [^4]: `remove()` 是一个所谓的“可选”方法（还有其它这样的方法），这意味着并非所有的 **Iterator** 实现都必须实现该方法。这个问题将在[附录：集合主题](./Appendix-Collection-Topics)中介绍。但是，标准 Java 库集合实现了 `remove()` ，因此在[附录：集合主题](./Appendix-Collection-Topics)章节之前，都不必担心这个问题。
 

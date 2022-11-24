@@ -396,7 +396,7 @@ Pig2[1]: Ralph MEDIUM a752aeee
 
 ## 哈希和哈希码
 
-在 [集合](./12-Collections) 章节中，我们使用预先定义的类作为 HashMap 的键。这些示例之所以有用，是因为预定义的类具有所有必需的连线，以使它们正确地充当键。
+在 [集合](./Collections) 章节中，我们使用预先定义的类作为 HashMap 的键。这些示例之所以有用，是因为预定义的类具有所有必需的连线，以使它们正确地充当键。
 
 当创建自己的类作为HashMap的键时，会发生一个常见的陷阱，从而忘记进行必要的接线。例如，考虑一个将Earthhog 对象与 Prediction 对象匹配的天气预报系统。这似乎很简单：使用Groundhog作为键，使用Prediction作为值：
 
@@ -908,7 +908,7 @@ hashCode()和equals() 都基于CountedString的这两个字段来生成结果；
 
 在main）中，使用相同的String创建了多个CountedString对象。这说明，虽然String相同，但是由于id不同，所以使得它们的散列码并不相同。在程序中，HashMap被打印了出来，因此可以看到它内部是如何存储元素的（以无法辨别的次序），然后单独查询每一个键，以此证明查询机制工作正常。
 
-作为第二个示例，请考虑Individual类，它被用作[类型信息](./19-Type-Information)中所定义的typeinfo.pet类库的基类。Individual类在那一章中就用到了，而它的定义则放到了本章，因此你可以正确地理解其实现。
+作为第二个示例，请考虑Individual类，它被用作[类型信息](./Type-Information)中所定义的typeinfo.pet类库的基类。Individual类在那一章中就用到了，而它的定义则放到了本章，因此你可以正确地理解其实现。
 
 在这里替换了手工去计算 `hashCode()`，我们使用了更合适的方式 ` Objects.hash() `：
 
